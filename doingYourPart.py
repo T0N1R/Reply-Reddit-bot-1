@@ -13,38 +13,38 @@ import time
 import sys
 
 a = 1
-while a>0:
-        reddit = praw.Reddit(client_id='INGRESAR ID', 
-                        client_secret='INGRESAR SECRETO',
-                        password='INGRESAR CONTRASEÑA', 
-                        user_agent='USER_AGENT',
-                        username='USERNAME')
+while a > 0:
+    reddit = praw.Reddit(client_id='INGRESAR ID',
+                         client_secret='INGRESAR SECRETO',
+                         password='INGRESAR CONTRASEÑA',
+                         user_agent='USER_AGENT',
+                         username='USERNAME')
 
-        #elegir subreddit (en este caso PewdiepieSubmissions)
-        subreddit = reddit.subreddit('PewdiepieSubmissions')
+    # elegir subreddit (en este caso PewdiepieSubmissions)
+    subreddit = reddit.subreddit('PewdiepieSubmissions')
 
-        #frases que se buscarán en el título del post
-        frases = ['doing my part', 'doing my part!', 'doing my part!!', 'doing my part!!!', 'doing your part']
+    # frases que se buscarán en el título del post
+    frases = ['doing my part', 'doing my part!',
+              'doing my part!!', 'doing my part!!!', 'doing your part']
 
-        #respuesta
-        respuesta = '**Clap** **Clap**' + '\n' + '   Thanks for helping the 9 year old army!' + '\n' + '\n' + 'I am a bot :V'
+    # respuesta
+    respuesta = '**Clap** **Clap**' + '\n' + \
+        '   Thanks for helping the 9 year old army!' + '\n' + '\n' + 'I am a bot :V'
 
-        non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
+    non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 
-        for submission in subreddit.stream.submissions():
-                try:
-                        titulo = submission.title
+    for submission in subreddit.stream.submissions():
+        try:
+            titulo = submission.title
 
-                        #para evitar errores al haber un emoji en el titulo
-                        titulo = titulo.translate(non_bmp_map)
-                        titulo = titulo.lower()
+            # para evitar errores al haber un emoji en el titulo
+            titulo = titulo.translate(non_bmp_map)
+            titulo = titulo.lower()
 
+            for i in frases:
+                if i in titulo:
+                    print (titulo)
+                    submission.reply(respuesta)
 
-                        for i in frases:
-                                if i in titulo:
-                                        print (titulo)
-                                        submission.reply(respuesta)
-                
-                except praw.exceptions.PRAWException as e:
-                        pass
-
+        except praw.exceptions.PRAWException as e:
+            pass
