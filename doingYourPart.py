@@ -20,8 +20,8 @@ while a > 0:
                          user_agent='USER_AGENT',
                          username='USERNAME')
 
-    # elegir subreddit (en este caso PewdiepieSubmissions)
-    subreddit = reddit.subreddit('PewdiepieSubmissions')
+    # elegir subreddit
+    subreddit = reddit.subreddit('')
 
     # frases que se buscarán en el título del post
     frases = ['doing my part', 'doing my part!',
